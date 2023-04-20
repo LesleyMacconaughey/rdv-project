@@ -1,0 +1,54 @@
+---
+
+- name: Установка bind9
+  apt:
+    name: "{{ item }}"
+    state: present
+  loop:
+    - bind9
+    - dnsutils
+  notify:
+    - bind systemd
+  
+- name: Создание папки для резервных копий конфигураций
+  file:
+    path: /etc/bind/conf.backup
+    state: directory
+    mode: 0755
+
+- name: Копирование конфигурационных файлов
+  copy:
+    src: files/named.conf.options
+    dest: /etc/bind/
+    owner: root
+    group: bind
+    mode: 0644
+    backup: yes
+
+- name: Создание папок для настроек зоны
+  file:
+    path: /etc/bind/myzones/serv/
+    state: directory
+    mode: 0755
+
+- name: Копирование файла настроек зоны
+  copy:
+    src: files/serv.db
+    dest: /etc/bind/myzones/serv/
+    owner: root
+    group: bind
+    mode: 0644
+         
+- name: Копирование настроек локальных зон
+  copy:
+    src: files/named.conf.local
+    dest: /etc/bind/
+    owner: root
+    group: bind
+    mode: 0644
+    backup: yes
+
+- name: Перезапуск bind9
+  systemd:
+    name: bind9
+    state: restarted

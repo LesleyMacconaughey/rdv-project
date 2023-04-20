@@ -1,0 +1,4 @@
+zone "serv" {
+type master;
+file "/etc/bind/myzones/serv/serv.db";
+};

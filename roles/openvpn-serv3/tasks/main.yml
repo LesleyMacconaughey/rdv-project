@@ -1,0 +1,28 @@
+---
+
+- name: Установка epel-release
+  yum:
+    name:
+      - epel-release
+    state: present
+
+- name: Установка openvpn 
+  yum:
+    name:
+      - openvpn
+    state: present
+
+- name: Копирование настроек
+  copy:
+    src: /etc/openvpn/client/serv3.conf
+    dest: /etc/openvpn/client
+
+- name: Запуск подключения vpn
+  raw: systemctl start openvpn-client@serv3.service
+  args:
+    executable: /bin/bash
+
+- name: Добавление в автозагрузку vpn
+  raw: systemctl enable openvpn-client@serv3.service
+  args:
+    executable: /bin/bash

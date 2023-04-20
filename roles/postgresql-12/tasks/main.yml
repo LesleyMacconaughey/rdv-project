@@ -1,0 +1,28 @@
+---
+
+- name: установка wget
+  yum:
+    name: wget
+    state: present
+
+- name: Скачивание пакета установки
+  uri:
+    url: https://download.postgresql.org/pub/repos/yum/reporpms/EL-7-x86_64/pgdg-redhat-repo-latest.noarch.rpm
+    dest: /tmp 
+
+- name: Установка репозитория
+  yum:
+    name: /tmp/pgdg-redhat-repo-latest.noarch.rpm
+    state: present
+
+- name: Установка postgresql-12
+  yum:
+    name: postgresql12-server
+    state: present
+    update_cache: true
+
+- name: Инициaлизация базы данных после установки ...
+  raw: /usr/pgsql-12/bin/postgresql-12-setup initdb
+  args:
+    executable: /bin/bash
+  ignore_errors: yes

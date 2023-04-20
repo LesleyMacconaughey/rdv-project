@@ -1,0 +1,12 @@
+---
+
+- hosts: serv2
+  become: true
+  roles:
+    - apache
+    - bind
+    - filebeat
+    - mail
+    - nginx
+    - php
+    - zabbix-agent

@@ -1,0 +1,9 @@
+---
+
+- hosts: serv3
+  become: true
+  roles:
+    - openvpn-serv3
+    - postgresql-12
+    - zabbix-agent
+    - elk

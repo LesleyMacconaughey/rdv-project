@@ -1,0 +1,12 @@
+$TTL 30m
+@ IN SOA serv. adm.serv. (
+1 ; serial
+5h ; renew period
+5m ; retry
+1w ; expire
+30m ); denial cache;
+@ IN NS serv2.
+
+serv1. IN A 10.10.0.1
+serv2. IN A 10.10.0.20
+serv3. IN A 10.10.0.30

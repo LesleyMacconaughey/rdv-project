@@ -1,0 +1,17 @@
+---
+
+- name: Копирование дистрибутивов
+  copy:
+    src: /distr/ES/{{ item }}
+    dest: /tmp/
+  loop:
+    - elasticsearch-8.7.0-x86_64.rpm 
+    - kibana-8.7.0-x86_64.rpm 
+
+- name: Установка elasticsearch и kibana
+  yum:
+    name: /tmp/{{ item }}
+    state: present
+  loop:
+    - elasticsearch-8.7.0-x86_64.rpm
+    - kibana-8.7.0-x86_64.rpm 

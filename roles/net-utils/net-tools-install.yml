@@ -1,0 +1,8 @@
+---
+- hosts: serv2
+  become: true
+  tasks:
+          - name: Instal net-tools
+            apt:
+                    name: net-tools
+                    state: present

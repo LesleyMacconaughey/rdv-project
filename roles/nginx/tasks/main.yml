@@ -1,0 +1,22 @@
+---
+- name: Установка nginx на serv2
+  apt:
+    name: nginx
+    state: present
+  notify:
+      - nginx systemd
+
+- name: Заменяем файл настроек nginx
+  template:
+    src=templates/nginx.conf
+    dest=/etc/nginx/nginx.conf
+
+- name: Заменяем шаблон настрорек сайта по умолчанию (порт 8080)
+  template:
+    src=templates/default
+    dest=/etc/nginx/sites-available/default
+
+- name: перезапускаем nginx
+  service:
+    name: nginx
+    state: restarted

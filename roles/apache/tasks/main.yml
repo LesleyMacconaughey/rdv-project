@@ -1,0 +1,10 @@
+---
+
+- name: Установка apache
+  apt:
+    name:
+      - apache2
+      - php-fpm
+    state: latest
+  notify:
+    - apache systemd

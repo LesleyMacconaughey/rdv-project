@@ -1,0 +1,13 @@
+---
+
+- name: Копирование дистрибутива filebeat
+  copy:
+    src: /distr/ES/filebeat-7.17.8-amd64.deb
+    dest: /tmp
+    mode: 0644
+    owner: root
+    group: root  
+- name: Установка filebeat из пакета
+  apt:
+    deb: /tmp/filebeat-7.17.8-amd64.deb
+    state: present
